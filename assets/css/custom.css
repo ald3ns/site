@@ -1,0 +1,28 @@
+@font-face {
+  font-family: BerkeleyMono-Regular;
+  src: url("/fonts/BerkeleyMono-Regular.woff2")
+}
+
+@font-face {
+  font-family: BerkeleyMono-Bold;
+  src: url("/fonts/BerkeleyMono-Bold.woff2")
+}
+
+@font-face {
+  font-family: BerkeleyMono-Italic;
+  src: url("/fonts/BerkeleyMono-Italic.woff2")
+}
+
+html, pre {
+    font-family: BerkeleyMono-Regular;
+    font-size: 10pt;
+}
+
+h1, h2, h3, h4, code {
+  font-family: BerkeleyMono-Bold;
+}
+
+span {
+  font-size: 9pt;
+}
+
