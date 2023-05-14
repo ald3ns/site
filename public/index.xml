@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>alden.io</title>
+    <link>https://alden.io/</link>
+    <description>Recent content on alden.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 13 May 2023 17:51:24 -0500</lastBuildDate><atom:link href="https://alden.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Crypto Workers Wanted</title>
+      <link>https://alden.io/posts/crypto-workers-wanted/</link>
+      <pubDate>Sat, 13 May 2023 17:51:24 -0500</pubDate>
+      
+      <guid>https://alden.io/posts/crypto-workers-wanted/</guid>
+      <description>An analysis of a multi-stage macOS implant which shares a large number of commonalities with Lazarus&amp;rsquo; Operation Interception.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://alden.io/posts/crypto-workers-wanted/featured.png" />
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://alden.io/about/</link>
+      <pubDate>Tue, 03 Jan 2023 18:55:12 -0500</pubDate>
+      
+      <guid>https://alden.io/about/</guid>
+      <description>hey! My name is alden (or birch) and I&amp;rsquo;m currently:
+CS undergrad @ UMD FIRE @ Yahoo (standard disclaimer: these thoughts are my own and do not represent those of my employer) VP and Competition Team Lead for UMDCSEC interested in malware, reverse engineering, threat intel the font used on this site is Berkeley Mono</description>
+      
+    </item>
+    
+    <item>
+      <title>Lazarus Using Leaked Hacking Team Tooling</title>
+      <link>https://alden.io/posts/lazarus-loves-crypto/</link>
+      <pubDate>Sun, 18 Dec 2022 17:51:24 -0500</pubDate>
+      
+      <guid>https://alden.io/posts/lazarus-loves-crypto/</guid>
+      <description>A quick analysis of Lazarus sample which makes use of Hacking Team tools from the 2017 leak.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://alden.io/posts/lazarus-loves-crypto/featured.png" />
+    </item>
+    
+    <item>
+      <title>PizzaCrypt Analysis</title>
+      <link>https://alden.io/posts/pizzacrypt-analysis/</link>
+      <pubDate>Wed, 07 Sep 2022 16:07:44 -0400</pubDate>
+      
+      <guid>https://alden.io/posts/pizzacrypt-analysis/</guid>
+      <description>A quick analysis of some fun .NET ransomware with a goofy ransom note.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://alden.io/posts/pizzacrypt-analysis/featured.png" />
+    </item>
+    
+  </channel>
+</rss>
