@@ -1,81 +1,85 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Tags on alden.io</title>
-    <link>https://alden.io/tags/</link>
-    <description>Recent content in Tags on alden.io</description>
+    <title>Tags on ExampleSite</title>
+    <link>https://examplesite.com/tags/</link>
+    <description>Recent content in Tags on ExampleSite</description>
+    <image>
+      <title>ExampleSite</title>
+      <url>https://examplesite.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://examplesite.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Sat, 13 May 2023 17:51:24 -0500</lastBuildDate><atom:link href="https://alden.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 May 2023 17:51:24 -0500</lastBuildDate><atom:link href="https://examplesite.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CTI</title>
-      <link>https://alden.io/tags/cti/</link>
+      <link>https://examplesite.com/tags/cti/</link>
       <pubDate>Sat, 13 May 2023 17:51:24 -0500</pubDate>
       
-      <guid>https://alden.io/tags/cti/</guid>
+      <guid>https://examplesite.com/tags/cti/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Lazarus</title>
-      <link>https://alden.io/tags/lazarus/</link>
+      <link>https://examplesite.com/tags/lazarus/</link>
       <pubDate>Sat, 13 May 2023 17:51:24 -0500</pubDate>
       
-      <guid>https://alden.io/tags/lazarus/</guid>
+      <guid>https://examplesite.com/tags/lazarus/</guid>
       <description></description>
     </item>
     
     <item>
       <title>macOS</title>
-      <link>https://alden.io/tags/macos/</link>
+      <link>https://examplesite.com/tags/macos/</link>
       <pubDate>Sat, 13 May 2023 17:51:24 -0500</pubDate>
       
-      <guid>https://alden.io/tags/macos/</guid>
+      <guid>https://examplesite.com/tags/macos/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Malware</title>
-      <link>https://alden.io/tags/malware/</link>
+      <link>https://examplesite.com/tags/malware/</link>
       <pubDate>Sat, 13 May 2023 17:51:24 -0500</pubDate>
       
-      <guid>https://alden.io/tags/malware/</guid>
+      <guid>https://examplesite.com/tags/malware/</guid>
       <description></description>
     </item>
     
     <item>
       <title>North Korea</title>
-      <link>https://alden.io/tags/north-korea/</link>
+      <link>https://examplesite.com/tags/north-korea/</link>
       <pubDate>Sat, 13 May 2023 17:51:24 -0500</pubDate>
       
-      <guid>https://alden.io/tags/north-korea/</guid>
+      <guid>https://examplesite.com/tags/north-korea/</guid>
       <description></description>
     </item>
     
     <item>
       <title>RE</title>
-      <link>https://alden.io/tags/re/</link>
+      <link>https://examplesite.com/tags/re/</link>
       <pubDate>Sat, 13 May 2023 17:51:24 -0500</pubDate>
       
-      <guid>https://alden.io/tags/re/</guid>
+      <guid>https://examplesite.com/tags/re/</guid>
       <description></description>
     </item>
     
     <item>
       <title>.NET</title>
-      <link>https://alden.io/tags/.net/</link>
+      <link>https://examplesite.com/tags/.net/</link>
       <pubDate>Wed, 07 Sep 2022 16:07:44 -0400</pubDate>
       
-      <guid>https://alden.io/tags/.net/</guid>
+      <guid>https://examplesite.com/tags/.net/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ransomware</title>
-      <link>https://alden.io/tags/ransomware/</link>
+      <link>https://examplesite.com/tags/ransomware/</link>
       <pubDate>Wed, 07 Sep 2022 16:07:44 -0400</pubDate>
       
-      <guid>https://alden.io/tags/ransomware/</guid>
+      <guid>https://examplesite.com/tags/ransomware/</guid>
       <description></description>
     </item>
     
